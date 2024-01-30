@@ -1,0 +1,3 @@
+pip install gymnasium
+pip install "gymnasium[atari]"
+pip install autorom[accept-rom-license]
