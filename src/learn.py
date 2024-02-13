@@ -22,7 +22,7 @@ def on_press(key):
             elif key == keyboard.Key.right:
                 current_action = 3
             elif key == keyboard.Key.space:
-                current_action = 1
+                current_action = 13
 
 
 def listen_for_keys():
