@@ -15,25 +15,26 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 print("Device: ", device)
 
-environment = DQNBreakout(device=device) #, render_mode="human")
-
+environment = DQNBreakout(device=device, render_mode="human")
 action_space = environment.action_space.n
 model = Atarinet(nb_actions=action_space)
 model.to(device)
 model.load()
 
+print(f"Action space: {action_space}")
+
 agent = Agent(model, 
             device=device,
-            epsilon=0.10, 
-            min_epsilon=0.10, 
+            epsilon=0.05, 
+            min_epsilon=0.05, 
             nb_warmup=1000, 
             nb_action=action_space, 
-            memomy_capacity=4000, 
-            batch_size=32, 
-            learning_rate=0.000001)
+            memomy_capacity=100000, 
+            batch_size=64, 
+            learning_rate=0.00001)
 
-agent.train(env = environment, epochs=10000)
-
+# agent.train(env = environment, epochs=100000)
+agent.test(env = environment)
 
 # state = environment.reset()
 

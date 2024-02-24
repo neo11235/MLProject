@@ -96,11 +96,11 @@ class Agent:
             stats['Returns'].append(ep_return)
             if self.epsilon > self.min_epsilon:
                 self.epsilon *= self.epsilon_decay
-            if epoch % 10 == 0:
+            if epoch % 100 == 0:
                 self.model.save()
-                print(" ")
-                print(type(stats['Returns']))
-                print(stats['Returns'])
+                # print(" ")
+                # print(type(stats['Returns']))
+                # print(stats['Returns'])
                 average_return = np.mean(stats['Returns'][-100:])
                 stats['AvgReturns'].append(average_return)
                 stats['EpsilonCheckpoint'].append(self.epsilon)
@@ -108,8 +108,8 @@ class Agent:
                     print(f"Epoch: {epoch}, Average Return: {average_return}, Epsilon: {self.epsilon}")
                 else:
                     print(f"Epoch: {epoch}, Return: {np.mean(stats['AvgReturns'][-1:])}, Epsilon: {self.epsilon}")
-            if epoch % 100 == 0:
-                self.tarted_model.load_state_dict(self.model.state_dict())
+            if epoch % 1000 == 0:
+                self.target_model.load_state_dict(self.model.state_dict())
                 plotter.update_plot(stats)
             
             if epoch % 1000 == 0:

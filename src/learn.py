@@ -30,7 +30,8 @@ def listen_for_keys():
         listener.join()
 
 def main():
-    env = gym.make('ALE/Seaquest-v5')
+    env = gym.make('ALE/Seaquest-v5', render_mode="human")
+    # env = gym.make('ALE/Breakout-v5')
     # keyboard.hook(on_arrow_key)
     # with keyboard.Listener(on_press=on_arrow_key) as listener:
     #     listener.join()
@@ -44,20 +45,27 @@ def main():
     # print(observation.shape)
     # print(info)
     global current_action
-    plt.ion()
+    # plt.ion()
     for _ in range(1000):
         # action = env.action_space.sample()
         with action_lock:
             action = current_action
             current_action = 0
         observation, reward, terminated, truncated, info = env.step(action)
+        if abs(reward) > 1e-9:
+            print(reward)
+            print(info)
+            print(observation.shape)
+            print(reward)
+            print(type(reward))
+        # exit(0)
         
-        plt.imshow(observation)
-        plt.show()    
-        plt.pause(.05)
+        # plt.imshow(observation)
+        # plt.show()    
+        # plt.pause(.05)
         if terminated or truncated:
             observation, info = env.reset()
-    plt.ioff()
+    # plt.ioff()
     env.close()
 
 if __name__ == '__main__':
