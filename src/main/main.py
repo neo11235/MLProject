@@ -24,7 +24,7 @@ model.load()
 
 agent = Agent(model, 
             device=device,
-            epsilon=0.10, 
+            epsilon=0.70, 
             min_epsilon=0.10, 
             nb_warmup=1000, 
             nb_action=action_space, 
