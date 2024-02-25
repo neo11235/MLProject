@@ -109,8 +109,9 @@ class Agent:
                     print(f"Epoch: {epoch}, Average Return: {average_return}, Epsilon: {self.epsilon}")
                 else:
                     print(f"Epoch: {epoch}, Return: {np.mean(stats['AvgReturns'][-1:])}, Epsilon: {self.epsilon}")
-            if epoch % 1000 == 0:
+            if epoch % 100 == 0:
                 self.target_model.load_state_dict(self.model.state_dict())
+            if epoch % 1000 == 0:
                 plotter.update_plot(stats)
             
             if epoch % 1000 == 0:
@@ -118,6 +119,7 @@ class Agent:
         return stats
 
     def test(self, env):
+        total_reward = 5 # number of lives in breakout
         for epoch in  range(1, 3):
             state = env.reset()
             done = False
@@ -125,5 +127,8 @@ class Agent:
                 time.sleep(0.01)
                 action = self.get_action(state)
                 state, reward, done, info = env.step(action)
+                total_reward += reward.to('cpu').numpy()[0][0]
                 if done:
+                    print(f"Total Reward: {total_reward}")
+                    total_reward = 5
                     break

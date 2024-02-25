@@ -41,6 +41,13 @@ class Atarinet(nn.Module):
         action_value = self.relu(self.action_value3(action_value))
         # action_value = self.dropout(action_value)
         
+        # print(state_value.shape)
+        # print(type(state_value))
+        # print(state_value)
+        # print(action_value.shape)
+        # print(type(action_value))
+        # print(action_value)
+        # exit(0)
         output = state_value + (action_value - action_value.mean())
         return output
 

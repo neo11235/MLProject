@@ -19,14 +19,14 @@ environment = DQNBreakout(device=device, render_mode="human")
 action_space = environment.action_space.n
 model = Atarinet(nb_actions=action_space)
 model.to(device)
-model.load()
+model.load("models/model_iter_1000.pt") # models/model_iter_1000 5.31
 
 print(f"Action space: {action_space}")
 
 agent = Agent(model, 
             device=device,
-            epsilon=0.05, 
-            min_epsilon=0.05, 
+            epsilon=0.00, 
+            min_epsilon=0.00, 
             nb_warmup=1000, 
             nb_action=action_space, 
             memomy_capacity=100000, 

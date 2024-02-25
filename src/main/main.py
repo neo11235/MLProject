@@ -24,15 +24,15 @@ model.load()
 
 agent = Agent(model, 
             device=device,
-            epsilon=0.70, 
+            epsilon=0.10, 
             min_epsilon=0.10, 
             nb_warmup=1000, 
             nb_action=action_space, 
             memomy_capacity=4000, 
-            batch_size=32, 
-            learning_rate=0.000001)
+            batch_size=64, 
+            learning_rate=0.00001)
 
-agent.train(env = environment, epochs=10000)
+agent.train(env = environment, epochs=100000)
 
 
 # state = environment.reset()
